@@ -5,7 +5,7 @@ from sklearn.feature_selection import RFE
 from sklearn.model_selection import train_test_split
 
 # Load dataset (replace with actual file path or dataframe)
-data = pd.read_csv("your_dataset.csv")
+data = pd.read_csv("Cleaned Data_ 2.csv")
 
 # Define features (X) and target variable (y)
 X = data.drop(columns=['waste_percentage'])  # Adjust column name as needed

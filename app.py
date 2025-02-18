@@ -1,0 +1,49 @@
+import streamlit as st
+import math
+
+# Initialize variables
+asitrade = 0
+diecutter = 0
+digital = 0
+flexopress = 0
+gluer = 0
+gopfert = 0
+laminator = 0
+
+st.write("# Optimized Quantity")
+
+# Order quantity input
+orderQty = int(st.number_input("Order Qty", min_value=0, step=1))
+
+# Checkboxes to determine machine usage
+asitrade = 1 if st.checkbox("Is the ASITRADE used?") else 0
+diecutter = 1 if st.checkbox("Is the DIECUTTER used?") else 0
+digital = 1 if st.checkbox("Is the DIGITAL used?") else 0
+flexopress = 1 if st.checkbox("Is the FLEXOPRESS used?") else 0
+gluer = 1 if st.checkbox("Is the GLUER used?") else 0
+gopfert = 1 if st.checkbox("Is the GOPFERT used?") else 0
+laminator = 1 if st.checkbox("Is the LAMINATOR used?") else 0
+
+# Calculate waste and needed amount
+waste = orderQty * (
+    (.5 * asitrade) +
+    (.2 * diecutter) +
+    (.1 * digital) +
+    (.2 * flexopress) +
+    (.3 * gluer) +
+    (.05 * gopfert) +
+    (.15 * laminator)
+)
+
+needed = orderQty + math.ceil(waste)
+
+# Display results
+st.write("# Amount to put in: ", needed)
+st.write("Amount of estimated waste: ", waste)
+
+
+
+
+
+
+

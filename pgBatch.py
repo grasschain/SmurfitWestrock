@@ -15,15 +15,20 @@ if st.button(label="Return to Home Page", key=None, help=None, type="secondary",
 st.markdown("### IMPORT JOBS HERE:")
 
 # File Uploader
-uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xlsm"])
+uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx"])
 if uploaded_file:
     st.success("Upload complete!")
 
-# Define the current file name and the new file name
-new_name = "JobsToPredict.xlsx"
+upload_dir = "/mnt/data/"
+files = os.listdir(upload_dir)
 
-# Rename the file
-os.rename(uploaded_file, new_name)
+for file in files:
+    if file.endswith(".xlsx"):  # Checks for Excel files
+        old_path = os.path.join(upload_dir, file)
+        new_path = os.path.join(upload_dir, "JobsToPredict.xlsx")  # Set your desired new name
+        os.rename(old_path, new_path)
+#        print(f"Renamed {file} to JobsToPredict.xlsx")
+        break  # Stop after renaming the first Excel file
 
 with open("phase1.py") as f:
     exec(f.read())

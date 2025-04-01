@@ -1,5 +1,6 @@
 import streamlit as st
 import math
+import os
 
 orderQty=0
 
@@ -18,12 +19,25 @@ uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xlsm"])
 if uploaded_file:
     st.success("Upload complete!")
 
+# Define the current file name and the new file name
+new_name = "JobsToPredict.xlsx"
+
+# Rename the file
+os.rename(uploaded_file, new_name)
+
+with open("phase1.py") as f:
+    exec(f.read())
+
+with open("phase2.py") as g:
+    exec(g.read())
+
+
 st.markdown("---")  # Horizontal line
 
 #  File Download
 ("# OPTIMAL STARTING QUANTITIES")
 
-st.download_button(label="DOWNLOAD", data="Sample Data", file_name="xx")
+st.download_button(label="DOWNLOAD", data="Job_Machine_Quantities.xlsx", file_name="Job_Machine_Quantities.xlsx")
 
 st.write("##### Important features")
 st.write("flute code, qty bucket, machine group, blank width")

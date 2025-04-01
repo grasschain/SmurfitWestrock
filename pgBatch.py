@@ -4,6 +4,8 @@ import os
 
 orderQty=0
 
+# FIRST SECTION
+
 # Set page title
 st.set_page_config(page_title="Batch Job", layout="centered")
 
@@ -19,24 +21,14 @@ uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx"])
 if uploaded_file:
     st.success("Upload complete!")
 
-upload_dir = "/mnt/data/"
-files = os.listdir(upload_dir)
+if uploaded_file != None:
+    os.rename(uploaded_file.name, "JobsToPredict.xlxs")
+    with open("phase1.py") as f:
+        exec(f.read())
+    with open("phase2.py") as g:
+        exec(g.read())
 
-for file in files:
-    if file.endswith(".xlsx"):  # Checks for Excel files
-        old_path = os.path.join(upload_dir, file)
-        new_path = os.path.join(upload_dir, "JobsToPredict.xlsx")  # Set your desired new name
-        os.rename(old_path, new_path)
-#        print(f"Renamed {file} to JobsToPredict.xlsx")
-        break  # Stop after renaming the first Excel file
-
-with open("phase1.py") as f:
-    exec(f.read())
-
-with open("phase2.py") as g:
-    exec(g.read())
-
-
+# SECOND SECTION
 st.markdown("---")  # Horizontal line
 
 #  File Download

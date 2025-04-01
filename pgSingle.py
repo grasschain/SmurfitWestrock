@@ -34,35 +34,36 @@ with middle:
 with right:
     col1, col2 = st.columns(2, vertical_alignment="top")
     with col1:
-        feature1 = st.selectbox("OFFSET", ["YES", "NO"],
+        ftOFFSET = st.selectbox("OFFSET", ["YES", "NO"],
                         index=None,
                         placeholder="Select")
-        feature2 = st.selectbox("FLUTE CODE", ["YES", "NO"],
+        ftFLUTECODE = st.selectbox("FLUTE CODE",
+                        ["0","B","BC","C","E","EB","EC","F","SBS","STRN","X"],
                         index=None,
                         placeholder="Select")
-        feature3 = st.selectbox("TEST CODE", ["YES", "NO"],
+        ftTESTCODE = st.number_input("TEST CODE", min_value=0, max_value=999,
+                        value=None, placeholder="Enter Value")
+        ftCLOSURE = st.selectbox("CLOSURE TYPE", ["0"],
                         index=None,
                         placeholder="Select")
-        feature4 = st.selectbox("CLOSURE TYPE", ["YES", "NO"],
+        ftCOMPONENT = st.selectbox("COMPONENT CODE",
+                        ["0", "10PT","12PT","16PT","18PT","20PT","22PT","24PT","28PT","BB","BK","BM","IB","II"
+                         "IK","IM","K","KI","KK","KM","M","MK","MM","PK","TB","TI","TK","TM","TSPL"],
                         index=None,
                         placeholder="Select")
-        feature5 = st.selectbox("COMPONENT CODE", ["YES", "NO"],
+        ftROTARY = st.selectbox("ROTARY DC", ["YES", "NO"],
                         index=None,
                         placeholder="Select")
-        feature6 = st.selectbox("ROTARY DC", ["YES", "NO"],
-                        index=None,
-                        placeholder="Select")
-        feature7 = st.selectbox("NUMBER UP ENTRY", ["YES", "NO"],
-                        index=None,
-                        placeholder="Select")
+        ftNUMBERUP = st.number_input("NUMBER UP ENTRY", min_value=0, max_value=100,
+                        value=None, placeholder="Enter Value")
     with col2:
-        feature8 = st.number_input("BLANK WIDTH", min_value=0, value=None,
+        ftBLANKWIDTH = st.number_input("BLANK WIDTH", min_value=0, value=None,
                         placeholder="Enter Value")
-        feature9 = st.number_input("BLANK LENGTH", min_value=0, value=None,
+        ftBLANKLENGTH = st.number_input("BLANK LENGTH", min_value=0, value=None,
                         placeholder="Enter Value")
-        feature10 = st.number_input("ITEM WIDTH", min_value=0, value=None,
+        ftITEMWIDTH = st.number_input("ITEM WIDTH", min_value=0, value=None,
                         placeholder="Enter Value")
-        feature11 = st.number_input("ITEM LENGTH", min_value=0, value=None,
+        ftITEMLENGTH = st.number_input("ITEM LENGTH", min_value=0, value=None,
                         placeholder="Enter Value")
 
 

@@ -41,8 +41,6 @@ with right:
                         ["0","B","BC","C","E","EB","EC","F","SBS","STRN","X"],
                         index=None,
                         placeholder="Select")
-        ftTESTCODE = st.number_input("TEST CODE", min_value=0, max_value=999,
-                        value=None, placeholder="Enter Value")
         ftCLOSURE = st.selectbox("CLOSURE TYPE", ["0"],
                         index=None,
                         placeholder="Select")
@@ -54,9 +52,12 @@ with right:
         ftROTARY = st.selectbox("ROTARY DC", ["YES", "NO"],
                         index=None,
                         placeholder="Select")
+        
+    with col2:
+        ftTESTCODE = st.number_input("TEST CODE", min_value=0, max_value=999,
+                        value=None, placeholder="Enter Value")
         ftNUMBERUP = st.number_input("NUMBER UP ENTRY", min_value=0, max_value=100,
                         value=None, placeholder="Enter Value")
-    with col2:
         ftBLANKWIDTH = st.number_input("BLANK WIDTH", min_value=0, value=None,
                         placeholder="Enter Value")
         ftBLANKLENGTH = st.number_input("BLANK LENGTH", min_value=0, value=None,

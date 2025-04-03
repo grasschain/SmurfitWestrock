@@ -60,7 +60,7 @@ if uploaded_file:
 
 
 if uploaded_file:
-    download_path = "/workspaces/SmurfitWestrock/Job_Machine_Quantities.xlsx"
+    download_path = "Job_Machine_Quantities.xlsx"
     if os.path.exists(download_path):
         with open(download_path, "rb") as f:
             st.download_button(label="DOWNLOAD", data=f, file_name="Job_Machine_Quantities.xlsx")

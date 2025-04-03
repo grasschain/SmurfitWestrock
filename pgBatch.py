@@ -14,7 +14,7 @@ st.set_page_config(page_title="Batch Job", layout="centered")
 if st.button(label="Return to Home Page", key=None, help=None, type="secondary", icon=None,
             disabled=False, use_container_width=False):
     st.switch_page("pgTitle.py")
-st.write("Current working directory:", os.getcwd())
+
 # Title
 st.markdown("### IMPORT JOBS HERE:")
 
@@ -22,17 +22,17 @@ st.markdown("### IMPORT JOBS HERE:")
 uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx"])
 if uploaded_file:
     st.success("Upload complete!")
-    st.write("Current working directory:", os.getcwd())
-
-    #with open(saved_path, "wb") as f:
-    #    f.write(uploaded_file.getbuffer())
-    if not os.path.exists(uploaded_file.name):
-        st.error(f"File not found: {uploaded_file.name}. Please upload the file again.")
+    saved_path = os.path.join("/mount/src/smurfitwestrock/", uploaded_file.name)
+    with open(saved_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    
+    new_path = "/mount/src/smurfitwestrock/JobsToPredict.xlsx"
+    if not os.path.exists(new_path):
+        st.error(f"File not found: {new_path}. Please upload the file again.")
     #else:
         #st.success(f"File found: {new_path}")
-    new_path = "JobsToPredict.xlsx"
-    os.rename(uploaded_file.name, new_path)
-    st.success(f"File renamed to JobsToPredict.xlsx")
+    os.rename(saved_path, new_path)
+    #st.success(f"File renamed to {new_path}")
 
 
 # SECOND SECTION
@@ -59,7 +59,7 @@ if uploaded_file:
 
 
 if uploaded_file:
-    download_path = uploaded_file.name
+    download_path = "/workspaces/SmurfitWestrock/Job_Machine_Quantities.xlsx"
     if os.path.exists(download_path):
         with open(download_path, "rb") as f:
             st.download_button(label="DOWNLOAD", data=f, file_name="Job_Machine_Quantities.xlsx")

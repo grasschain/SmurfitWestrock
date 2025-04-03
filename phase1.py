@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import os
-import streamlit as st
+import sys
 
 # -------------------------------
 # Helper Function: NRMSE
@@ -144,7 +144,7 @@ print("Average Original Testing MSE (100 iterations):", avg_original_test_mse)
 # ------------------------------------------------------------------
 new_path = "JobsToPredict.xlsx"
 if not os.path.exists(new_path):
-        st.error(f"File not found: {new_path}. Please upload the file again.")
+        sys.exit("Error: Something went wrong.")
 else:
     new_jobs_file = "JobsToPredict.xlsx"
 

@@ -29,7 +29,10 @@ if uploaded_file:
     new_path = "/workspaces/SmurfitWestrock/JobsToPredict.xlsx"
     os.rename(saved_path, new_path)
     #st.success(f"File renamed to {new_path}")
-
+if not os.path.exists(new_path):
+    st.error(f"File not found: {new_path}. Please upload the file again.")
+else:
+    st.success(f"File found: {new_path}")
 
 # SECOND SECTION
 st.markdown("---")  # Horizontal line

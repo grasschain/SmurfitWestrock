@@ -26,7 +26,7 @@ if uploaded_file:
     with open(saved_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
     
-    new_path = "/workspaces/SmurfitWestrock/JobsToPredict.xlsx"
+    new_path = "JobsToPredict.xlsx"
     if not os.path.exists(new_path):
         st.error(f"File not found: {new_path}. Please upload the file again.")
     #else:

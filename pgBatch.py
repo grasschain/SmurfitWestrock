@@ -14,7 +14,7 @@ st.set_page_config(page_title="Batch Job", layout="centered")
 if st.button(label="Return to Home Page", key=None, help=None, type="secondary", icon=None,
             disabled=False, use_container_width=False):
     st.switch_page("pgTitle.py")
-
+st.write("Current working directory:", os.getcwd())
 # Title
 st.markdown("### IMPORT JOBS HERE:")
 

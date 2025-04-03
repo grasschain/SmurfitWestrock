@@ -142,12 +142,8 @@ print("Average Original Testing MSE (100 iterations):", avg_original_test_mse)
 # ------------------------------------------------------------------
 # 7. Predicting on a New Jobs File (Ignoring PURCHASED BOARD/OFFSET)
 # ------------------------------------------------------------------
-new_path = "JobsToPredict.xlsx"
-if not os.path.exists(new_path):
-        sys.exit("Error: Something went wrong.")
-else:
-    new_jobs_file = "JobsToPredict.xlsx"
 
+new_jobs_file = "JobsToPredict.xlsx"
 df_jobs = pd.read_excel(new_jobs_file)
 
 # (A) Filter out the rows where 'Machine Group 1' == 'PURCHASED BOARD/OFFSET'

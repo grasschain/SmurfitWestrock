@@ -188,7 +188,7 @@ if uploaded_file:
     # 7. Predicting on a New Jobs File (Ignoring PURCHASED BOARD/OFFSET)
     # ------------------------------------------------------------------
 
-    new_jobs_file = "JobsToPredict.xlsx"
+    new_jobs_file = uploaded_file
     df_jobs = pd.read_excel(new_jobs_file)
 
     # (A) Filter out the rows where 'Machine Group 1' == 'PURCHASED BOARD/OFFSET'

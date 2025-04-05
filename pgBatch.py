@@ -28,19 +28,6 @@ st.markdown("### IMPORT JOBS HERE:")
 uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx"])
 if uploaded_file:
     st.success("Upload complete!")
-    #saved_path = os.path.join("/mount/src/smurfitwestrock/", uploaded_file.name)
-    
-    
-    #new_path = "JobsToPredict.xlsx"
-    #if not os.path.exists(new_path):
-    #    st.error(f"File not found: {new_path}. Please upload the file again.")
-    #else:
-        #st.success(f"File found: {new_path}")
-    #os.rename(saved_path, new_path)
-    #st.success(f"File renamed to {new_path}")
-    #with open(new_path, "wb") as f:
-    #    f.write(uploaded_file.getbuffer())
-
 
 # SECOND SECTION
 st.markdown("---")  # Horizontal line
@@ -390,6 +377,8 @@ if uploaded_file:
     if os.path.exists(download_path):
         with open(download_path, "rb") as f:
             st.download_button(label="DOWNLOAD", data=f, file_name="Job_Machine_Quantities.xlsx")
+    else:
+        st.write("Job_Machine_Quantities.xlsx not found!")
 
 
     # Dropdown Selection for Quick View

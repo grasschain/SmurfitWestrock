@@ -1,92 +1,24 @@
 import streamlit as st
-import math
+import os
 import pandas as pd
-import xgboost as xgb
 import numpy as np
-import scipy.stats as stats
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
+import xgboost as xgb
+import scipy.stats as stats
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-
-
-# Set page title
-st.set_page_config(page_title="Single Job", layout="centered")
-
-if st.button(label="Return to Home Page", key=None, help=None, type="secondary", icon=None,
-            disabled=False, use_container_width=False):
+# Set up the Streamlit page
+st.set_page_config(page_title="Batch Job", layout="centered")
+if st.button("Return to Home Page"):
     st.switch_page("pgTitle.py")
 
-# Title
-st.markdown("## Enter Job Information:")
-    
-left, middle, right = st.columns([3, 5, 8], vertical_alignment="top")
+st.markdown("### IMPORT A JOB:")
 
-with left:
-    orderQty = st.number_input("Order Qty", min_value=0)
-with middle:
-    job1 = st.selectbox("Select Machine 1", ["Asitrade", "Digital", "Diecutter", "Flexopress", "Gluer", "Gopfert"],
-                        index=None,
-                        placeholder="Select machine group")
-    job2 = st.selectbox("Select Machine 2", ["Asitrade", "Digital", "Diecutter", "Flexopress", "Gluer", "Gopfert"],
-                        index=None,
-                        placeholder="Select machine group")
-    job3 = st.selectbox("Select Machine 3", ["Asitrade", "Digital", "Diecutter", "Flexopress", "Gluer", "Gopfert"],
-                        index=None,
-                        placeholder="Select machine group")
-    job4 = st.selectbox("Select Machine 4", ["Asitrade", "Digital", "Diecutter", "Flexopress", "Gluer", "Gopfert"],
-                        index=None,
-                        placeholder="Select machine group")
-    job5 = st.selectbox("Select Machine 5", ["Asitrade", "Digital", "Diecutter", "Flexopress", "Gluer", "Gopfert"],
-                        index=None,
-                        placeholder="Select machine group")
-with right:
-    col1, col2 = st.columns(2, vertical_alignment="top")
-    with col1:
-        ftOFFSET = st.selectbox("OFFSET", ["YES", "NO"],
-                        index=None,
-                        placeholder="Select")
-        ftFLUTECODE = st.selectbox("FLUTE CODE",
-                        ["0","B","BC","C","E","EB","EC","F","SBS","STRN","X"],
-                        index=None,
-                        placeholder="Select")
-        ftCLOSURE = st.selectbox("CLOSURE TYPE", ["0"],
-                        index=None,
-                        placeholder="Select")
-        ftCOMPONENT = st.selectbox("COMPONENT CODE",
-                        ["0", "10PT","12PT","16PT","18PT","20PT","22PT","24PT","28PT","BB","BK","BM","IB","II"
-                         "IK","IM","K","KI","KK","KM","M","MK","MM","PK","TB","TI","TK","TM","TSPL"],
-                        index=None,
-                        placeholder="Select")
-        ftROTARY = st.selectbox("ROTARY DC", ["YES", "NO"],
-                        index=None,
-                        placeholder="Select")
-        
-    with col2:
-        ftTESTCODE = st.number_input("TEST CODE", min_value=0, max_value=999,
-                        value=None, placeholder="Enter Value")
-        ftNUMBERUP = st.number_input("NUMBER UP ENTRY", min_value=0, max_value=100,
-                        value=None, placeholder="Enter Value")
-        ftBLANKWIDTH = st.number_input("BLANK WIDTH", min_value=0, value=None,
-                        placeholder="Enter Value")
-        ftBLANKLENGTH = st.number_input("BLANK LENGTH", min_value=0, value=None,
-                        placeholder="Enter Value")
-        ftITEMWIDTH = st.number_input("ITEM WIDTH", min_value=0, value=None,
-                        placeholder="Enter Value")
-        ftITEMLENGTH = st.number_input("ITEM LENGTH", min_value=0, value=None,
-                        placeholder="Enter Value")
+st.markdown("---")
+st.markdown("# OPTIMAL STARTING QUANTITIES")
 
-
-st.markdown("---")  # Horizontal line
-
-#wasteQty = round(0.05 * orderQty)
-#optQty = round(orderQty - wasteQty)
-#finalQty = round(orderQty + (0.001 * orderQty))
-
-#  Information Return
-("# OPTIMAL STARTING QUANTITIES")
-
-if st.button("Calculate", type="secondary"):
+if uploaded_file:
     # ---------------------------
     # Helper Functions
     # ---------------------------
@@ -254,6 +186,9 @@ if st.button("Calculate", type="secondary"):
         grouped.to_excel(output_file_grouped, index=False)
         print("Grouped predictions (with qty_ordered) saved to", output_file_grouped)
 
+    # ---------------------------
+    # Phase 2: Simulation for Optimal Q1
+    # ---------------------------
     with st.spinner("Computing optimal Q1 and processing job simulations, please wait..."):
         Cu = 3.41  # Underage cost
         Co = 0.71  # Overage cost
@@ -297,7 +232,19 @@ if st.button("Calculate", type="secondary"):
         results_df.to_excel(output_file, index=False)
         print("Results saved to", output_file)
 
-    #OUTPUT VIEW
+    # ---------------------------
+    # Output & Quick View Section
+    # ---------------------------
+    st.write("##### Important features")
+    st.write('Flute Code Grouped, Qty Bucket, Component Code Grouped, Machine Group 1, Last Operation, qty_ordered, number_up_entry_grouped, OFFSET?, Operation, Test Code')
+
+    if os.path.exists(output_file):
+        with open(output_file, "rb") as f:
+            st.download_button(label="DOWNLOAD", data=f, file_name="Job_Machine_Quantities.xlsx")
+    else:
+        st.write("Job_Machine_Quantities.xlsx not found!")
+
+    st.markdown("## QUICK VIEW")
     df_view = load_excel(output_file)
     if df_view.shape[1] >= 8:
         # Extract unique job numbers and allow a selection
@@ -323,14 +270,6 @@ if st.button("Calculate", type="secondary"):
         else:
             st.error("No data found for the selected job number.")
     else:
-        st.error("Data cannot be calculated.")
-
-
-# Starting Quantity
-#st.write("### Total Quantity Fed In: ", optQty)
-
-# Estimated amount of waste
-#st.write("Estimated Waste: ", wasteQty)
-
-# Finished Quantity
-#st.write("Final Output Quantity: ", finalQty)
+        st.error("The uploaded file does not contain any columns.")
+else:
+    st.write("To view, import a file first.")

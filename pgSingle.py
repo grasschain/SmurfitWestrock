@@ -373,6 +373,7 @@ if st.button("Calculate", type="secondary"):
 
     if df_view.shape[1] >= 8:
         # Get all USERJOB_ rows – assumed to be sequential steps in one job
+        df_view['job_number'] = df_view['job_number'].astype(str)
         job_sequence_df = df_view[df_view['job_number'].str.startswith(
             "USERJOB_")]
         st.write("Columns in job_sequence_df:", job_sequence_df.columns.tolist())

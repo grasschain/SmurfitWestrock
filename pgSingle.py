@@ -364,12 +364,12 @@ if st.button("Calculate", type="secondary"):
 
         results_df = pd.DataFrame(results)
         print(results_df)
-        output_file = 'Job_Machine_Quantities.xlsx'
-        results_df.to_excel(output_file, index=False)
-        print("Results saved to", output_file)
+        #output_file = 'Job_Machine_Quantities.xlsx'
+        #results_df.to_excel(output_file, index=False)
+        #print("Results saved to", output_file)
 
     # OUTPUT VIEW
-    df_view = load_excel(output_file)
+    df_view = results_df
 
     if df_view.shape[1] >= 8:
         # Get all USERJOB_ rows – assumed to be sequential steps in one job

@@ -144,7 +144,7 @@ if st.button("Calculate", type="secondary"):
     )
 
     dfInput.to_excel("JobsToPredict.xlsx", index=False)
-    st.success("Excel file saved!")
+    st.success("Inputs saved!")
 
     # ---------------------------
     # Helper Functions

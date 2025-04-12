@@ -376,7 +376,7 @@ if st.button("Calculate", type="secondary"):
         df_view['job_number'] = df_view['job_number'].astype(str)
         job_sequence_df = df_view[df_view['job_number'].str.startswith(
             "USERJOB_")]
-        st.write(results_df)
+        #st.write(results_df)
 
         if not job_sequence_df.empty:
             st.write("### Job Sequence Overview")
